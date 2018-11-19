@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import FileUpload from "./fileUpload";
 import "./App.css";
 import firebase from "firebase";
 
@@ -51,6 +51,7 @@ class App extends Component {
           />
           <p>hola {this.state.user.displayName}</p>
           <button onClick={this.handleLogout}>Logout</button>
+          <FileUpload />
         </div>
       );
     } else {

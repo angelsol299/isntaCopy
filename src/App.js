@@ -9,6 +9,15 @@ class App extends Component {
     this.state = {
       user: null
     };
+
+    this.handleAuth = this.handleAuth.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user });
+    });
   }
 
   handleAuth() {
@@ -21,16 +30,27 @@ class App extends Component {
       .catch(error => console.log(`Error ${error.code}: ${error.message}`));
   }
 
+  handleLogout() {
+    firebase
+      .auth()
+      .signOut()
+      .then(result =>
+        console.log(`${result.user.email} the session has been ended`)
+      )
+      .catch(error => console.log(`Error ${error.code}: ${error.message}`));
+  }
+
   renderLoginButton() {
     //si esta logueado
     if (this.state.user) {
       return (
         <div>
           <img
-            src="this.state.user.photoURL"
-            alt="{this.state.user.displayName}"
+            src={this.state.user.photoURL}
+            alt={this.state.user.displayName}
           />
           <p>hola {this.state.user.displayName}</p>
+          <button onClick={this.handleLogout}>Logout</button>
         </div>
       );
     } else {
@@ -44,7 +64,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h2>insta</h2>
-          <p className="App-intro">{this.renderLoginButton}</p>
+          <p className="App-intro">{this.renderLoginButton()}</p>
         </header>
       </div>
     );

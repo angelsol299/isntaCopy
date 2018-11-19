@@ -6,6 +6,12 @@ import firebase from "firebase";
 class App extends Component {
   handleAuth() {
     const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => console.log(`${result.user.email} has started a session`))
+      .catch();
   }
   render() {
     return (

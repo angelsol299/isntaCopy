@@ -7,7 +7,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      pictures: null
     };
 
     this.handleAuth = this.handleAuth.bind(this);
